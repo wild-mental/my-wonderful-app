@@ -58,6 +58,8 @@ import {
   XCircle,
   Zap,
 } from "lucide-react";
+import LemonMarketPieCharts from "./landing/LemonMarketPieCharts";
+import LostSoulsRitual from "./landing/LostSoulsRitual";
 
 /* ────────────────────────────── 상수/카피 ────────────────────────────── */
 
@@ -411,11 +413,16 @@ export function LandingPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-white text-slate-900 overflow-x-hidden selection:bg-blue-200 selection:text-blue-900">
+    <div id="top" className="min-h-screen bg-white text-slate-900 overflow-x-hidden selection:bg-blue-200 selection:text-blue-900">
       {/* ━━━━━━━━━━━━━━━━━━━━ Header ━━━━━━━━━━━━━━━━━━━━ */}
       <header className="fixed top-0 inset-x-0 z-50 backdrop-blur-xl bg-white/75 border-b border-slate-200/70">
-        <div className="max-w-6xl mx-auto px-5 h-14 flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
+        <div className="max-w-6xl mx-auto px-5 h-14 flex items-center justify-between gap-4">
+          {/* Left: Logo */}
+          <a
+            href="#top"
+            className="flex items-center gap-2.5 shrink-0"
+            aria-label="Super-Calc 홈"
+          >
             <div className="relative w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 via-indigo-600 to-violet-700 flex items-center justify-center shadow-md shadow-blue-300/40">
               <span className="text-white font-black text-[11px] tracking-tight">SC</span>
               <span className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-emerald-400 ring-2 ring-white animate-pulse" />
@@ -426,12 +433,56 @@ export function LandingPage() {
             <span className="hidden sm:inline-flex ml-1 px-1.5 py-0.5 rounded-md bg-slate-900 text-[10px] font-bold text-white tracking-wider">
               BETA
             </span>
-          </div>
+          </a>
 
-          <div className="flex items-center gap-2">
+          {/* Center: Section Nav */}
+          <nav
+            aria-label="섹션 이동"
+            className="hidden md:flex items-center gap-1"
+          >
+            <a
+              href="#ritual"
+              className="px-3 py-1.5 text-sm font-semibold text-slate-600 hover:text-slate-900 rounded-lg hover:bg-slate-100 transition-colors"
+            >
+              의식
+            </a>
+            <a
+              href="#problem"
+              className="px-3 py-1.5 text-sm font-semibold text-slate-600 hover:text-slate-900 rounded-lg hover:bg-slate-100 transition-colors"
+            >
+              문제
+            </a>
+            <a
+              href="#pledge"
+              className="px-3 py-1.5 text-sm font-semibold text-slate-600 hover:text-slate-900 rounded-lg hover:bg-slate-100 transition-colors"
+            >
+              약속
+            </a>
+            <a
+              href="#features"
+              className="px-3 py-1.5 text-sm font-semibold text-slate-600 hover:text-slate-900 rounded-lg hover:bg-slate-100 transition-colors"
+            >
+              기능
+            </a>
+            <a
+              href="#demo"
+              className="px-3 py-1.5 text-sm font-semibold text-slate-600 hover:text-slate-900 rounded-lg hover:bg-slate-100 transition-colors"
+            >
+              데모
+            </a>
+            <a
+              href="#roi"
+              className="px-3 py-1.5 text-sm font-semibold text-slate-600 hover:text-slate-900 rounded-lg hover:bg-slate-100 transition-colors"
+            >
+              ROI
+            </a>
+          </nav>
+
+          {/* Right: CTA */}
+          <div className="flex items-center gap-2 shrink-0">
             <button
               onClick={goToApp}
-              className="hidden sm:inline-flex items-center gap-1 text-xs font-semibold text-slate-500 hover:text-slate-900 px-2.5 py-1.5 rounded-lg transition-colors"
+              className="hidden lg:inline-flex items-center gap-1 text-xs font-semibold text-slate-500 hover:text-slate-900 px-2.5 py-1.5 rounded-lg transition-colors"
             >
               데모 둘러보기
               <ArrowRight className="w-3.5 h-3.5" />
@@ -461,7 +512,7 @@ export function LandingPage() {
           }`}
         >
           {/* Manifesto Badge */}
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/15 text-xs sm:text-sm font-semibold text-white mb-7">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/15 text-xs sm:text-sm font-semibold text-white mb-4">
             <span className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 animate-ping" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
@@ -471,24 +522,41 @@ export function LandingPage() {
             <span className="text-slate-200">입니다.</span>
           </div>
 
-          {/* H1 — 매니페스토 */}
-          <h1 className="font-black tracking-tight leading-[1.05] text-4xl sm:text-6xl md:text-7xl lg:text-8xl mb-7">
-            <span className="block text-white">광고 없는</span>
-            <span className="block bg-clip-text text-transparent bg-gradient-to-r from-cyan-300 via-sky-300 to-blue-400">
-              팩트.
+          {/* Key Appeal Chips */}
+          <div className="flex flex-wrap items-center justify-center gap-2 mb-7">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/15 text-xs sm:text-sm font-semibold text-white">
+              <span aria-hidden>🎯</span>
+              <span className="text-slate-100">1일 단가 자동 환산</span>
             </span>
-            <span className="block mt-1 text-white">엑셀 없는</span>
-            <span className="block bg-clip-text text-transparent bg-gradient-to-r from-amber-300 via-orange-300 to-rose-400">
-              최저가.
+            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/15 text-xs sm:text-sm font-semibold text-white">
+              <span aria-hidden>🚫</span>
+              <span className="text-slate-100">광고 0%</span>
+            </span>
+            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/15 text-xs sm:text-sm font-semibold text-white">
+              <span aria-hidden>⏱️</span>
+              <span className="text-slate-100">5초 끝</span>
+            </span>
+          </div>
+
+          {/* H1 — 매니페스토 */}
+          <h1 className="font-black tracking-tight leading-[1.15] text-3xl sm:text-5xl md:text-6xl lg:text-7xl mb-7">
+            <span className="block text-white">영양제 1일 함량별</span>
+            <span className="block bg-clip-text text-transparent bg-gradient-to-r from-cyan-300 via-sky-300 to-blue-400">
+              가격 비교를
+            </span>
+            <span className="block mt-1 bg-clip-text text-transparent bg-gradient-to-r from-amber-300 via-orange-300 to-rose-400">
+              한번에!
             </span>
           </h1>
 
           <p className="text-base sm:text-lg md:text-xl text-slate-300 leading-relaxed max-w-2xl mx-auto mb-10">
-            건기식 시장의 정보 비대칭과 뒷광고 노이즈를{" "}
-            <strong className="text-white">100% 제거</strong>합니다.
+            평균 <strong className="text-white">1시간 이상</strong> 걸리는 메모장과 엑셀 작업,
             <br className="hidden sm:block" />
-            식약처 공전 기반 의학 팩트체크 + 1일 단가 자동 환산.{" "}
-            <span className="text-cyan-300 font-semibold">5초면 끝.</span>
+            아직도 직접 성분 환산하며 비교하시나요?{" "}
+            <span className="text-cyan-300 font-semibold">저희가 대신 해드립니다!</span>
+            <br className="hidden sm:block" />
+            프로모션 연결? 상품 제조사의 광고?{" "}
+            <span className="text-amber-300 font-semibold">전혀 없습니다!</span>
           </p>
 
           {/* 인터랙티브 검색 데모 */}
@@ -574,8 +642,11 @@ export function LandingPage() {
         </div>
       </section>
 
+      {/* ━━━━━━━━━━━━━━━━━━━━ ①.5 Lost Souls Ritual (Halloween-style satire) ━━━━━━━━━━━━━━━━━━━━ */}
+      <LostSoulsRitual onCtaClick={scrollToCta} />
+
       {/* ━━━━━━━━━━━━━━━━━━━━ ② Lemon Market ━━━━━━━━━━━━━━━━━━━━ */}
-      <section className="py-20 sm:py-28 px-5 bg-slate-950 text-white relative overflow-hidden">
+      <section id="problem" className="scroll-mt-20 py-20 sm:py-28 px-5 bg-slate-950 text-white relative overflow-hidden">
         <div className="absolute inset-0 opacity-[0.06] [background-image:linear-gradient(white_1px,transparent_1px),linear-gradient(90deg,white_1px,transparent_1px)] [background-size:48px_48px] pointer-events-none" />
 
         <div className="relative max-w-6xl mx-auto">
@@ -618,6 +689,8 @@ export function LandingPage() {
             ))}
           </div>
 
+          <LemonMarketPieCharts />
+
           <div className="mt-12 sm:mt-16 max-w-3xl mx-auto p-6 sm:p-8 rounded-2xl bg-gradient-to-r from-rose-500/10 via-amber-500/10 to-rose-500/10 border border-amber-400/20">
             <p className="text-base sm:text-lg text-slate-200 leading-relaxed">
               <span className="text-rose-300 font-bold">결론:</span>{" "}
@@ -632,7 +705,7 @@ export function LandingPage() {
       </section>
 
       {/* ━━━━━━━━━━━━━━━━━━━━ ③ Anti-BS Pledge ━━━━━━━━━━━━━━━━━━━━ */}
-      <section className="py-20 sm:py-28 px-5 bg-white">
+      <section id="pledge" className="scroll-mt-20 py-20 sm:py-28 px-5 bg-white">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12 sm:mb-16">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900 text-white text-xs font-bold tracking-[0.18em] mb-5">
@@ -706,7 +779,7 @@ export function LandingPage() {
       </section>
 
       {/* ━━━━━━━━━━━━━━━━━━━━ ④ Three Engines ━━━━━━━━━━━━━━━━━━━━ */}
-      <section className="py-20 sm:py-28 px-5 bg-slate-50 relative">
+      <section id="features" className="scroll-mt-20 py-20 sm:py-28 px-5 bg-slate-50 relative">
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-slate-300 to-transparent" />
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12 sm:mb-16">
@@ -978,7 +1051,7 @@ export function LandingPage() {
       </section>
 
       {/* ━━━━━━━━━━━━━━━━━━━━ ⑦ Result Preview (Interactive) ━━━━━━━━━━━━━━━━━━━━ */}
-      <section className="py-20 sm:py-28 px-5 bg-white">
+      <section id="demo" className="scroll-mt-20 py-20 sm:py-28 px-5 bg-white">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-10 sm:mb-14">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900 text-white text-xs font-bold tracking-[0.18em] mb-5">
@@ -1151,7 +1224,7 @@ export function LandingPage() {
       </section>
 
       {/* ━━━━━━━━━━━━━━━━━━━━ ⑧ Before / After ━━━━━━━━━━━━━━━━━━━━ */}
-      <section className="py-20 sm:py-28 px-5 bg-slate-950 text-white relative overflow-hidden">
+      <section id="roi" className="scroll-mt-20 py-20 sm:py-28 px-5 bg-slate-950 text-white relative overflow-hidden">
         <div className="absolute -top-20 right-1/4 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute -bottom-20 left-1/4 w-96 h-96 bg-violet-600/15 rounded-full blur-3xl pointer-events-none" />
 
