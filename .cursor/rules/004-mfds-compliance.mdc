@@ -1,0 +1,44 @@
+---
+description: 식약처 건강기능식품공전 1:1 매칭 및 질병 예방·치료 금지 표현 0건 강제
+globs: app/**/*badge*, app/**/*ingredient*, app/**/*product*, lib/badge/**, lib/mfds/**, components/**/*Badge*, components/**/*Ingredient*
+alwaysApply: false
+---
+
+# MFDS Compliance Rules (건강기능식품법 준수)
+
+## Context
+- 본 룰은 뱃지 / 성분 / 제품 관련 코드 또는 UI 컴포넌트 작업 시 자동 주입된다.
+- 위반 시 건강기능식품법에 따른 식약처 제재 (리스크 R2: 점수 10, High) 가능성이 있어 **빌드 차단** 게이트로 동작한다.
+
+## Rule 1: 식약처 공전 1:1 매칭 (REQ-FUNC-011)
+- 뱃지 텍스트(`Badge.badge_label`)는 식약처 건강기능식품공전 **원문 문구만** 래핑한다.
+- 자체 생성·번역·요약·각색된 표현 일체 금지.
+- 뱃지 ↔ 공전 불일치율 **< 0.5%** 보장.
+- `Badge.evidence_url` 은 반드시 식약처 공식 DB URL 또는 검증된 논문 DOI.
+
+## Rule 2: 금지 표현 0건 (CON-2, REQ-NF-017)
+다음 카테고리 표현은 뱃지 / 성분 / 제품 텍스트 어디에도 등장 금지:
+
+- **질병 예방·치료 표현:** "예방", "치료", "완치", "낫게", "효과 있음", "OOO 에 좋다"
+- **의약품 효능 시사 표현:** "강력한", "확실한", "임상적으로 증명", "특허받은 효능"
+- **비교 우위 단정 표현:** "최고", "유일한", "1위" (객관 데이터 출처 명시 시에만 허용)
+
+빌드 시 `307-mfds-compliance-prohibited-expression-rules` 스킬의 lint 룰로 검수한다.
+
+## Rule 3: 미등재 원료 처리 (REQ-FUNC-014)
+- 식약처 공전 미등재 성분(`mfds_status = NOT_REGISTERED`): **뱃지 미부여**, 회색 라벨 "식약처 미등재 원료 — 기능성 인정 정보 없음" 표시.
+- 미부여 사유는 툴팁으로 제공.
+- 임의 뱃지 부여 시 **build failure**.
+
+## Rule 4: 일상어 번역 (REQ-FUNC-013)
+- 전문 용어 옆에 일상어 번역을 괄호로 표시. 예: "콜레칼시페롤 (몸에 잘 흡수되는 비타민 D3)"
+- 번역 매핑은 `lib/badge/translations.ts` 단일 화이트리스트에서만 관리.
+- 식약처 등록 기능성 원료 기준 커버리지 **≥ 95%**, 번역 정확도 **≥ 98%**.
+
+## Rule 5: 출처 투명 공개 (REQ-FUNC-022)
+- 모든 뱃지 / 성분 데이터는 `"[출처 확인]"` 버튼을 제공.
+- 클릭 시 식약처 DB 링크 + 제조사 라벨 이미지 + 논문 DOI 가 아코디언으로 펼쳐짐.
+- 출처 도달 **≤ 2 클릭** 보장.
+
+## Related Skill
+- [.agents/skills/307-mfds-compliance-prohibited-expression-rules/SKILL.md](mdc:.agents/skills/307-mfds-compliance-prohibited-expression-rules/SKILL.md) — 구체 lint 패턴, 화이트리스트, 검증 절차

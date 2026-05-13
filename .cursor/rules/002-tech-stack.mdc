@@ -1,0 +1,54 @@
+---
+description: SRS §1.2.3 CON-7~13 에 따른 확정 기술 스택 (변경 금지)
+alwaysApply: true
+---
+
+# Technical Stack (Confirmed)
+
+> 본 스택은 SRS-001 v1.4 §1.2.3 CON-7~13 에 의해 **확정**됨. 변경 시 반드시 SRS 부터 개정한다.
+
+## Full-Stack Framework
+- **Next.js (App Router) 14+** with **TypeScript strict**
+- 단일 풀스택 모놀리스 — **프론트엔드/백엔드 분리 금지** (CON-7)
+- 서버 로직은 **Route Handlers (`/app/api/v1/*`) + Server Actions (`/app/actions/*`)** — 별도 백엔드 서버 금지 (CON-8)
+
+## Database / ORM
+- **Prisma ORM** + **Supabase PostgreSQL** (배포) / **SQLite** (로컬) (CON-9)
+- Supabase Auth (`@supabase/ssr`) — 이메일 기반, 비교 이력만 수집 (CON-4)
+- Supabase Storage — 제조사 라벨 이미지 (LABEL_ARCHIVE)
+- Row Level Security (RLS) — 모든 테이블 필수
+
+## UI / Styling
+- **Tailwind CSS v3** + **shadcn/ui** (Radix UI 기반) (CON-10)
+- 모바일 웹 퍼스트, 카카오 내장 브라우저 호환 필수
+- WCAG AA 접근성 준수
+
+## Infrastructure
+- **배포:** Vercel 단일 플랫폼, Git Push 자동 배포 (CON-13)
+- **캐시:** Vercel KV (Redis 호환) / Next.js `unstable_cache` / `revalidate`
+- **Cron:** Vercel Cron (일 1회 가격 동기화, 주 1회 카카오 정책 감지)
+- **이메일:** Resend API (REQ-FUNC-026)
+- **분석:** Mixpanel + Amplitude + Vercel Analytics
+- **로깅:** Vercel Logs / Log Drain → Slack Webhook
+
+## External APIs (SRS §3.1)
+- **쿠팡 파트너스 API** — 가격(KRW), 딥링크 (수수료 3%)
+- **식약처 건강기능식품공공 API** — 기능성 인정 내용, 일일 섭취량
+- **카카오 Link JS SDK** — 카카오톡 공유 카드
+
+## LLM (Phase 2 사전 셋업만)
+- **Vercel AI SDK** — MVP 단계 LLM 기능 미구현, 인프라만 준비 (CON-11)
+- **Google Gemini API** — 기본 LLM Provider 설정 (CON-12)
+
+## 금지 스택 (Out of Scope)
+- ❌ 별도 백엔드 서버 (Java/Spring, FastAPI, Express 등)
+- ❌ 별도 프론트엔드 SPA (Vite/CRA/Remix 단독 사용)
+- ❌ Kafka / RabbitMQ / SQS / 별도 메시지 큐
+- ❌ 네이티브 앱 (iOS/Android/Flutter/React Native)
+- ❌ 자체 DB 호스팅 (직접 운영 PostgreSQL/MySQL)
+- ❌ 자체 Redis 운영 (Lettuce/Redisson)
+
+## See also
+- [001-project-overview.mdc](mdc:.cursor/rules/001-project-overview.mdc)
+- [003-development-guidelines.mdc](mdc:.cursor/rules/003-development-guidelines.mdc)
+- [docs/05_SRS_v1.md](mdc:docs/05_SRS_v1.md) §1.2.3 Constraints, §3 System Context

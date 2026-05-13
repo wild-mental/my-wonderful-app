@@ -1,0 +1,41 @@
+---
+description: 건기식 성분·가격 비교 초자동화 플랫폼 비전·페르소나·KPI 요약
+alwaysApply: true
+---
+
+# PROJECT OVERVIEW: 건기식 성분·가격 비교 초자동화 플랫폼 (Super-Calc MVP)
+
+## Vision
+수동 엑셀 계산과 뒷광고 필터링에 지친 건강기능식품 소비자에게, **실시간 1일 단가 계산 + 의학 팩트체크 + 1탭 공유**를 제공하는 신뢰 기반 비교 플랫폼.
+
+## SSOT
+- Business: [docs/00_PRD_v1_0.md](mdc:docs/00_PRD_v1_0.md) (v1.0)
+- Technical: [docs/05_SRS_v1.md](mdc:docs/05_SRS_v1.md) (SRS-001 v1.4)
+
+## Core Features (MoSCoW: Must)
+- **F1. Super-Calc Engine** — 쿠팡 파트너스 1일 단가 정규화·정렬 (REQ-FUNC-001~009)
+- **F2. Anti-BS Dashboard** — 식약처 공전 1:1 매칭 뱃지 + 일상어 번역, 광고 0건 (REQ-FUNC-010~015)
+- **F3. Viral Engine** — 카카오톡 1-Tap 공유, 앱 설치 불요 웹뷰 (REQ-FUNC-016~021)
+- **F4. Data Trust System** — 라벨 아카이브 + 오류 제보 48h SLA + 리워드 (REQ-FUNC-022~028)
+
+## Target Personas
+- **C1 한정훈** (36, 개발자) — 가성비 최적화 직구족, 5초 내 최저가 확인
+- **C2 박소연** (43, 인사팀 과장) — 건강 계기 진입자, 30분 내 확신 있는 결정
+- **A2 정수빈** (27, 뷰티 마케터) — 트렌드 추종 탐색자, 5초 팩트체크 + 1탭 공유
+- **E2 김도현** (29, 데이터 분석가) — 신뢰 실패자, 출처 2클릭 + 48h 수정 SLA
+
+> 배제 페르소나: E1 디지털 소외, N1 브랜드 맹신 (MVP 자원 투입 전면 금지)
+
+## North Star KPI
+- **TTC (Time-To-Completion):** 탐색 시작 → 결제 링크 클릭 또는 SNS 공유 완료까지 **p50 ≤ 5분 / p95 ≤ 30분**
+
+## Project Philosophy
+- 광고 노이즈 **0건** — Anti-BS 포지셔닝은 절대 타협 금지
+- 데이터 무결성 우선 — 모든 비교 수치는 2클릭 이내 원본 출처 도달 가능
+- 식약처 준수 — 질병 예방·치료 표현 0건, 공전 원문만 래핑
+- 모바일 웹 퍼스트 — 카카오 내장 브라우저 호환 필수
+
+## See also
+- [002-tech-stack.mdc](mdc:.cursor/rules/002-tech-stack.mdc)
+- [003-development-guidelines.mdc](mdc:.cursor/rules/003-development-guidelines.mdc)
+- [004-mfds-compliance.mdc](mdc:.cursor/rules/004-mfds-compliance.mdc)
