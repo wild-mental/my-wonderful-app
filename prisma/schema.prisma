@@ -1,0 +1,32 @@
+// Prisma schema skeleton for DATA-001.
+//
+// Per the task's Closed Context principle, only `generator` and `datasource`
+// blocks land here. Model blocks (PRODUCT, INGREDIENT, MFDS_BADGE, etc.) are
+// owned by DATA-002~010 and must not be added in this commit.
+//
+// DB strategy (CON-9):
+//   - Default production: PostgreSQL on Supabase via `DATABASE_URL`.
+//   - `DIRECT_URL` is used by Prisma Migrate to bypass the connection pooler.
+//   - For local dev a SQLite override may be applied temporarily, but the
+//     committed provider stays `postgresql` to keep migrations portable.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// SchemaProbe is a temporary placeholder kept only to satisfy
+// `prisma generate` (Prisma 5 refuses to emit a client when zero models
+// exist). It MUST be removed in DATA-002 as soon as the first real domain
+// model (PRODUCT) lands. Do not reference this model from app code.
+model SchemaProbe {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+
+  @@map("schema_probe")
+}
